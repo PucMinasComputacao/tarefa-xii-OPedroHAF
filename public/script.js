@@ -4,38 +4,30 @@ window.addEventListener("load", () =>{
   fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${chaveAPI}`)
   .then(res => res.json())
   .then(data => {
-    let str = ``
-    for(let i = 0; i < data.results.length; i++){
-      if (i % 3 === 0){
-        str += `<div class="row mb-4">`
-      }
-
-      let filme = data.results[i]
-      str += createMovieCard(filme)
-
-      if ((i + 1) % 3 === 0){
-        str += `</div>`
-      }
-    }
-
-    if (data.results.length % 3 !== 0){
-      str += `</div>`
-    }
-
-    document.getElementById("divFilmes").innerHTML = str
+    renderizarFilmes(data.results)
   })
 })
 
 const btnSearch = document.getElementById("btnSearch")
 btnSearch.addEventListener("click", () =>{
   const dataEscolhida = document.getElementById("dataFiltro").value
-  
+  if (!dataEscolhida) {
+    alert("Por favor, selecione uma data!")
+    return
+  }
   fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${chaveAPI}`)
   .then(res => res.json())
   .then(data => {
-    let filmesFiltrado = data.results.filter(filme => {
-      
+    let filmesFiltrados = data.results.filter(filme => {
+      return filme.release_date >= dataEscolhida
     })
+    console.log(filmesFiltrados)
+    if(filmesFiltrados.length >= 1){
+      renderizarFilmes(filmesFiltrados)
+    }
+    else{
+      document.getElementById("divFilmes").innerHTML = `<p class="text-center fs-1 p-5">Nenhum filme encontrado</>`
+    }
   })
 })
 
@@ -55,6 +47,23 @@ function createMovieCard(filme){
   return str
 }
 
+function renderizarFilmes(listaFilmes) {
+  let str = ``
+  for (let i = 0; i < listaFilmes.length; i++) {
+    if (i % 3 === 0) {
+      str += `<div class="row mb-4">`
+    }
+    let filme = listaFilmes[i]
+    str += createMovieCard(filme)
+    if ((i + 1) % 3 === 0) {
+      str += `</div>`
+    }
+  }
+  if (listaFilmes.length % 3 !== 0) {
+    str += `</div>`
+  }
+  document.getElementById("divFilmes").innerHTML = str
+}
 
 
   
