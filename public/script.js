@@ -1,25 +1,60 @@
-const data = {
-    "produtos": [
-      {
-        "id": 1,
-        "nome": "Smartphone Galaxy S23",
-        "preco": 3499.90,
-        "categoria": "Celulares",
-        "imagem": "https://example.com/imagens/galaxy-s23.jpg",
-        "descricao": "Smartphone com 128GB de armazenamento, câmera de alta resolução e excelente desempenho.",
-        "emEstoque": true
-      },
-      {
-        "id": 2,
-        "nome": "Notebook Dell Inspiron 15",
-        "preco": 4599.00,
-        "categoria": "Notebooks",
-        "imagem": "https://example.com/imagens/dell-inspiron-15.jpg",
-        "descricao": "Notebook com processador Intel i7, 16GB de RAM e SSD de 512GB, ideal para trabalho e estudos.",
-        "emEstoque": false
+const chaveAPI = '6c756c95bb6bcb24f3deb7dd3673155d'
+
+window.addEventListener("load", () =>{
+  fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${chaveAPI}`)
+  .then(res => res.json())
+  .then(data => {
+    let str = ``
+    for(let i = 0; i < data.results.length; i++){
+      if (i % 3 === 0){
+        str += `<div class="row mb-4">`
       }
-    ]
-  }
+
+      let filme = data.results[i]
+      str += createMovieCard(filme)
+
+      if ((i + 1) % 3 === 0){
+        str += `</div>`
+      }
+    }
+
+    if (data.results.length % 3 !== 0){
+      str += `</div>`
+    }
+
+    document.getElementById("divFilmes").innerHTML = str
+  })
+})
+
+const btnSearch = document.getElementById("btnSearch")
+btnSearch.addEventListener("click", () =>{
+  const dataEscolhida = document.getElementById("dataFiltro").value
+  
+  fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${chaveAPI}`)
+  .then(res => res.json())
+  .then(data => {
+    let filmesFiltrado = data.results.filter(filme => {
+      
+    })
+  })
+})
+
+function createMovieCard(filme){
+  let str = `
+    <div class="col-md-4">
+      <div class="card h-100">
+        <img src="https://image.tmdb.org/t/p/w500${filme.poster_path}" 
+             class="card-img-top" alt="${filme.title}">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">${filme.title}</h5>
+          <p class="card-text">${filme.overview}</p>
+          <a href="https://www.themoviedb.org/movie/${filme.id}" target="_blank" class="btn btn-primary mt-auto">Detalhes</a>
+        </div>
+      </div>
+    </div>`
+  return str
+}
+
 
 
   
