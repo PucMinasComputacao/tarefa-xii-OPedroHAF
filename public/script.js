@@ -39,6 +39,7 @@ function createMovieCard(filme){
              class="card-img-top" alt="${filme.title}">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">${filme.title}</h5>
+          <p class="card-text">${filme.release_date}</p>
           <p class="card-text">${filme.overview}</p>
           <a href="https://www.themoviedb.org/movie/${filme.id}" target="_blank" class="btn btn-primary mt-auto">Detalhes</a>
         </div>

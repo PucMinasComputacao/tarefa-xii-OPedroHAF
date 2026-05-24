@@ -1,4 +1,4 @@
-# Trabalho Prático - Semana 11
+# Trabalho Prático - Semana 12
 
 Nessa etapa, vamos evoluir o trabalho anterior, acrescentando a página de detalhes, conforme o  projeto escolhido. Imagine que a página principal (home-page) mostre um visão dos vários itens que existem no seu site. Ao clicar em um item, você é direcionado pra a página de detalhes. A página de detalhe vai mostrar todas as informações sobre o item do seu projeto. seja esse item uma notícia, filme, receita, lugar turístico ou evento.
 
@@ -8,14 +8,16 @@ IMPORTANTE: Assim como informado anteriormente, capriche na etapa pois você vai
 
 ## Informações Gerais
 
-- Nome:
-- Matricula:
+- Nome: Pedro Henrique Alves Ferreira
+- Matricula: 913940
+- Endpoint: Filmes populares
 
 ## Prints do trabalho
+### Filmes Carregados
+[!Filmes Carregados](./public/imgs/filmes-carregados.png)
+### Filmes Filtrados
+[!Filmes Filtrados](./public/imgs/filmes-filtrados.png)
 
-<<  COLOQUE A IMAGEM - TELA DE CARDS DE PRODUTOS - AQUI >>
+## Descrição
 
-<<  COLOQUE A IMAGEM - TELA DE DETALHE DO PRODUTO - AQUI >>
-
-<<  COLOQUE A IMAGEM - TELA DO CONSOLE - AQUI >>
-
+Ao disparar o evento (carregamento ou clique), o sistema faz uma requisição assíncrona (fetch) à API do TMDB para buscar a lista de filmes populares. Em seguida, ocorre o tratamento, onde os dados brutos são convertidos para JSON e filtrados com base na data inserida pelo usuário. Por fim, a renderização reconstrói o HTML dinamicamente agrupando os cards em linhas (rows) de três colunas e atualiza a tela de forma imediata.
